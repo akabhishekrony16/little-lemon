@@ -1,2 +1,2 @@
 # little-lemon
-Final Project For Mobile App Development Coursera
+Final Project For React Mobile App Development Coursera
