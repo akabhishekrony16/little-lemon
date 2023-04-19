@@ -18,7 +18,15 @@ export default function OnboardingScreen({navigation}) {
     }
 
 function NavigateToProfile(){
-  storeData({first_name:firstname,mail:email});
+  storeData({first_name:firstname,
+    last_name:"Adsad",
+    mail:email,
+    phone_no:null,
+    image_uri:null,
+    order_status:false,
+    password_change:false,
+    special_offers:false,
+    newsletters:false});
   return(
     navigation.navigate('Profile')
   );
