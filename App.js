@@ -1,10 +1,11 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View,Image,Pressable } from 'react-native';
 import { useState,useEffect } from 'react';
 
 import Header from './components/header';
 import ProfileScreen from './screens/profile';
 import OnboardingScreen from './screens/onboarding';
 import SplashScreen from './screens/splashscreen';
+import HomeScreen from './screens/homescreen';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,10 +14,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Stack = createNativeStackNavigator();
 
 
+
 export default function App() {
 
   const [login, setlogin] = useState(false);
   const [loading,setloading] = useState(true);
+  const [image, setImage] = useState(null);
 
 
   const getData = async () => {
@@ -24,6 +27,8 @@ export default function App() {
       const value = await AsyncStorage.getItem('@storage_Key')
       if(value !== null) {
         setlogin(true)
+        const json = JSON.parse(value)
+        setImage(json['image_uri'])
       }
     } catch(error) {
       console.log(error)
@@ -43,6 +48,7 @@ export default function App() {
       <Header/>
       <NavigationContainer>
        <Stack.Navigator>
+            <Stack.Screen options={{headerShown:false}} name="Home" component={HomeScreen} />
             <Stack.Screen options={{title:"Personal Information"}} name="Profile" component={ProfileScreen} />
             <Stack.Screen options={{title:"Welcome"}} name="Onboarding" component={OnboardingScreen} />
        </Stack.Navigator>
@@ -57,6 +63,7 @@ export default function App() {
         <Stack.Navigator>
             <Stack.Screen options={{title:"Welcome"}} name="Onboarding" component={OnboardingScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen options={{headerShown:false}} name="Home" component={HomeScreen} />
           </Stack.Navigator>
         </NavigationContainer>
         </View>
