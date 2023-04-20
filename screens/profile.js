@@ -95,7 +95,7 @@ function SaveChanges(){
       password_change:password_change,
       special_offers:special_offers,
       newsletters:newsletters});
-      return navigation.navigate("Home")
+      return Alert.alert("Saved Succesfuly!!!")
 
   }};
 

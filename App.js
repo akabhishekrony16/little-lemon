@@ -49,8 +49,8 @@ export default function App() {
       <NavigationContainer>
        <Stack.Navigator>
             <Stack.Screen options={{headerShown:false}} name="Home" component={HomeScreen} />
+            <Stack.Screen options={{title:"Welcome",headerLeft:()=>null}} name="Onboarding" component={OnboardingScreen} />
             <Stack.Screen options={{title:"Personal Information"}} name="Profile" component={ProfileScreen} />
-            <Stack.Screen options={{title:"Welcome"}} name="Onboarding" component={OnboardingScreen} />
        </Stack.Navigator>
       </NavigationContainer>
     </View>
@@ -61,9 +61,9 @@ export default function App() {
         <Header/>
         <NavigationContainer>
         <Stack.Navigator>
-            <Stack.Screen options={{title:"Welcome"}} name="Onboarding" component={OnboardingScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen options={{title:"Welcome",headerLeft: ()=> null}} name="Onboarding" component={OnboardingScreen} />
             <Stack.Screen options={{headerShown:false}} name="Home" component={HomeScreen} />
+            <Stack.Screen name="Profile" component={ProfileScreen} />
           </Stack.Navigator>
         </NavigationContainer>
         </View>

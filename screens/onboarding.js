@@ -9,6 +9,7 @@ const yellow = '#f4ce14';
 export default function OnboardingScreen({navigation}) {
     const [firstname, onChangefirstname] = useState('');
     const [email, onChangeemail] = useState('');
+    
     const storeData = async (value) => {
       try {
         await AsyncStorage.setItem('@storage_Key', JSON.stringify(value))
@@ -28,7 +29,7 @@ function NavigateToProfile(){
     special_offers:false,
     newsletters:false});
   return(
-    navigation.navigate('Profile')
+    navigation.navigate('Home')
   );
 };
 

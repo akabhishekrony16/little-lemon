@@ -17,53 +17,6 @@ const IMG_URL = 'https://github.com/akabhishekrony16/little-lemon/blob/main/asse
 
 const db = SQLite.openDatabase('little_lemon')
 
-
-// const Categories = [
-//   { name: 'Starters', id: '1A' },
-//   { name: 'Mains', id: '2B' },
-//   { name: 'Desserts', id: '3C' },
-//   { name: 'Drinks', id: '4D' }];
-
-// const Categories = ['Starters','Mains','Desserts','Drinks'];
-
-// const menuItems =   [
-//       {
-//         "name": "Greek Salad",
-//         "price": 12.99,
-//         "description": "Our delicious salad is served with Feta cheese and peeled cucumber. Includes tomatoes, onions, olives, salt and oregano in the ingredients.",
-//         "image": "greekSalad.jpg",
-//         "category": "starters"
-//       },
-//       {
-//         "name": "Bruschetta",
-//         "price": 7.99,
-//         "description": "Delicious grilled bread rubbed with garlic and topped with olive oil and salt. Our Bruschetta includes tomato and cheese.",
-//         "image": "bruschetta.jpg",
-//         "category": "starters"
-//       },
-//       {
-//         "name": "Grilled Fish",
-//         "price": 20.00,
-//         "description": "Fantastic grilled fish seasoned with salt.",
-//         "image": "grilledFish.jpg",
-//         "category": "mains"
-//       },
-//       {
-//         "name": "Pasta",
-//         "price": 6.99,
-//         "description": "Delicious pasta for your delight.",
-//         "image": "pasta.jpg",
-//         "category": "mains"      
-//       },
-//       {
-//         "name": "Lemon Dessert",
-//         "price": 4.99,
-//         "description": "You can't go wrong with this delicious lemon dessert!",
-//         "image": "lemonDessert.jpg",
-//         "category": "desserts"      
-//       }
-// ];
-
 export default function HomeScreen({navigation}) {
   const [image, setImage] = useState(null);
   const [Data,setData] = useState([]);
@@ -331,13 +284,13 @@ const getData = async () => {
         style={{fontSize:15,fontWeight:'bold',marginTop:10}}>
           ORDER FOR DELIVERY!
       </Text>
-      <FlatList
+        <FlatList
           horizontal={true}
           data={CategoriesToDisplay}
           renderItem={renderFlatList}
           >
        </FlatList>
-      </View>
+     </View>
       
       <View style={{borderColor:'#EDEFEE',borderWidth:1,marginLeft:10,marginRight:10}}/>
       
