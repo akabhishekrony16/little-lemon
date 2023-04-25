@@ -1,4 +1,4 @@
-import { StyleSheet, View,Image,Pressable} from 'react-native';
+import { StyleSheet, View} from 'react-native';
 import { useState,useEffect } from 'react';
 
 import Header from './components/header';
@@ -23,7 +23,6 @@ export default function App() {
 
   const [login, setlogin] = useState(false);
   const [loading,setloading] = useState(true);
-  const [image, setImage] = useState(null);
 
 
   const getData = async () => {
@@ -46,32 +45,15 @@ export default function App() {
 
   if(loading){
     return <SplashScreen/>;
-  }else if(login){
-    return(
-      <View style={styles.container}>
-      <Header/>
-      <NavigationContainer>
-       <Stack.Navigator initialRouteName='Home'>
-            <Stack.Screen options={{headerShown:false}} name="Home" component={HomeScreen} />
-            <Stack.Screen options={{title:"Welcome",headerShown:false}} name="Onboarding" component={OnboardingScreen} />
-            <Stack.Screen options={{title:"Personal Information"}} name="Profile" component={ProfileScreen} />
-            <Stack.Screen options={{headerShown:false}} name="Search" component={SearchScreen} />
-            <Stack.Screen options={{headerShown:false}} name="Order" component={OrderScreen} />
-            <Stack.Screen options={{headerShown:false}} name="Checkout" component={CheckoutScreen} />
-            <Stack.Screen options={{headerShown:false}} name="Checkdatabase" component={CheckDatabaseScreen} />
-       </Stack.Navigator>
-      </NavigationContainer>
-    </View>
-    );
   }else{
     return (
       <View style={styles.container}>
         <Header/>
         <NavigationContainer>
-        <Stack.Navigator initialRouteName='Welcome'>
+        <Stack.Navigator initialRouteName = {login?"Home":"Welcome"}>
             <Stack.Screen options={{title:"Welcome",headerShown:false}} name="Onboarding" component={OnboardingScreen} />
             <Stack.Screen options={{headerShown:false}} name="Home" component={HomeScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen options={{title:"Personal Information"}} name="Profile" component={ProfileScreen} />
             <Stack.Screen options={{headerShown:false}} name="Search" component={SearchScreen} />
             <Stack.Screen options={{headerShown:false}} name="Order" component={OrderScreen} />
             <Stack.Screen options={{headerShown:false}} name="Checkout" component={CheckoutScreen} />
