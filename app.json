@@ -21,7 +21,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.abhishekkar303.littlelemon"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -33,6 +37,11 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "98a028e8-6dfb-4f04-987b-ce8e278f60fd"
+      }
+    }
   }
 }

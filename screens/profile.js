@@ -121,7 +121,7 @@ function SaveChanges(){
 
   useEffect(() => {
     getData();
-  },[firstname,email]);
+  },[firstname,email,loading]);
 
   function Image_Header(){
     if(image=== null){

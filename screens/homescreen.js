@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Text, View,StyleSheet,Pressable,Image,FlatList,ScrollView,SafeAreaView} from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { Text, View,StyleSheet,Pressable,Image,FlatList} from 'react-native';
 import SplashScreen from './splashscreen';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -78,7 +77,7 @@ export default function HomeScreen({navigation}) {
 
 function renderMenuItems({ item }) {
   return (
-    <View style = {{marginTop:10}}>
+    <View style = {{marginTop:10,marginLeft:10,marginRight:10}}>
       <Text style={{fontWeight:'700'}}>{item.name}</Text>
       <View style ={{flexDirection:'row',justifyContent:'space-between',marginTop:10,marginBottom:10}}>
         <Text style={{fontWeight:'200',width:220}}>{item.description}{"\n"}{"\n"}
@@ -111,45 +110,19 @@ const getData = async () => {
     if (json !== null){
       db.transaction(tx => {
         tx.executeSql('DROP TABLE IF EXISTS Menu');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS Menu(name VARCHAR(100) PRIMARY KEY NOT NULL,price INTEGER,description VARCHAR(100),image VARCHAR(100),category VARCHAR(100))');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS Menu(id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(100),price INTEGER,description VARCHAR(100),image VARCHAR(100),category VARCHAR(100))');
         for(var i=0;i<json["menu"].length;i++){
           tx.executeSql('INSERT INTO Menu (name,price,description,image,category) VALUES (?,?,?,?,?)', [json["menu"][i]['name'],json["menu"][i]['price'],json["menu"][i]['description'],json["menu"][i]['image'],json["menu"][i]['category']]);
         }
         if (Filter.includes(true)){
-              if(search.length>0){
-
-                tx.executeSql(
-                  `select * from Menu where category in ("starters") and name like "%f%";`.replace("%f%","%" + search + "%").replace('("starters")',convert()), 
-                    null, 
-                  (_, { rows: { _array } }) => {
-                    setData(_array);
-                  }, 
-                    (_, error) => console.log('Error ', error)
-                    )
-
-
-              }else{
-                  tx.executeSql(
-                    'SELECT * FROM Menu WHERE category in ("starters")'.replace('("starters")',convert()), 
-                      null, 
-                    (_, { rows: { _array } }) => {
-                      setData(_array);
-                    }, 
-                      (_, error) => console.log('Error ', error)
-                      )
-                   }
-          }else if(search.length>0){
-
             tx.executeSql(
-              `select * from Menu where name like "%f%";`.replace("%f%","%" + search + "%"), 
+              'SELECT * FROM Menu WHERE category in ("starters")'.replace('("starters")',convert()), 
                 null, 
               (_, { rows: { _array } }) => {
                 setData(_array);
               }, 
                 (_, error) => console.log('Error ', error)
-                )
-              }
-          else{
+                )}else{
           tx.executeSql(
           'SELECT * FROM Menu', 
             null, 
@@ -172,40 +145,15 @@ const getData = async () => {
 
     db.transaction(tx => {
       if (Filter.includes(true)){
-            if(search.length>0){
-
-              tx.executeSql(
-                `select * from Menu where category in ("starters") and name like "%f%";`.replace("%f%","%" + search + "%").replace('("starters")',convert()), 
-                  null, 
-                (_, { rows: { _array } }) => {
-                  setData(_array);
-                }, 
-                  (_, error) => console.log('Error ', error)
-                  )
-
-
-            }else{
-                tx.executeSql(
-                  'SELECT * FROM Menu WHERE category in ("starters")'.replace('("starters")',convert()), 
-                    null, 
-                  (_, { rows: { _array } }) => {
-                    setData(_array);
-                  }, 
-                    (_, error) => console.log('Error ', error)
-                    )
-                 }
-        }else if(search.length>0){
-
           tx.executeSql(
-            `select * from Menu where name like "%f%";`.replace("%f%","%" + search + "%"), 
+            'SELECT * FROM Menu WHERE category in ("starters")'.replace('("starters")',convert()), 
               null, 
             (_, { rows: { _array } }) => {
               setData(_array);
             }, 
               (_, error) => console.log('Error ', error)
               )
-            }
-        else{
+          }else{
         tx.executeSql(
         'SELECT * FROM Menu', 
           null, 
@@ -228,7 +176,7 @@ const getData = async () => {
 
   useEffect(() => {
     getData();
-  }, [image,Filter,search]);
+  }, [Filter,search,loading]);
 
   function Image_Header(){
     if(image=== null){
@@ -244,10 +192,9 @@ const getData = async () => {
   
   return (
     <View style={{ flex:1,backgroundColor: 'white'}}>
-        <ScrollView>
         <View>
         <Pressable
-        onPress={()=>{navigation.navigate('Profile')}}
+        onPress={()=>{navigation.navigate("Profile")}}
         >
         <Image_Header/>
         </Pressable>
@@ -268,13 +215,12 @@ const getData = async () => {
                 <Image style={StyleMain.HeaderImage} source={require('../assets/header.png')} />
             </View>
             <View style = {{flexDirection:'row'}}>
-              <Image style={StyleMain.logo} source={require('../assets/search.png')} />
-              <TextInput
-              style = {StyleMain.input}
-              value = {search}
-              onChangeText={onChangesearch}
+              <Pressable
+              onPress={()=>{navigation.navigate("Search")}}
+              style = {{backgroundColor:'gray',height:50,width:50,borderRadius:25}}
               >
-              </TextInput>
+                 <Image style={StyleMain.search} source={require('../assets/search.png')} />
+              </Pressable>
             </View>
         </View>
      </View>
@@ -282,7 +228,7 @@ const getData = async () => {
     <View style = {{marginLeft:10,marginRight:10}}>
       <Text
         style={{fontSize:15,fontWeight:'bold',marginTop:10}}>
-          ORDER FOR DELIVERY!
+          TODAYS SPECIAL!!!
       </Text>
         <FlatList
           horizontal={true}
@@ -294,14 +240,13 @@ const getData = async () => {
       
       <View style={{borderColor:'#EDEFEE',borderWidth:1,marginLeft:10,marginRight:10}}/>
       
-        <View style={{flex:0.45,marginLeft:10,marginRight:10}}>
+        <View style={{flex:0.45}}>
         <FlatList
           data={Data}
           renderItem={renderMenuItems}
           >
        </FlatList>
         </View>
-        </ScrollView>
     </View>
   );
 }};
@@ -337,15 +282,19 @@ const StyleMain = StyleSheet.create({
     height:100,
     width:100,
     resizeMode:'cover',
+    borderRadius:15,
+    borderWidth:2,
+    borderColor:yellow
   },
   SearchCOntainer:{
     flexDirection: 'row',
   },
-  logo: {
+  search: {
     height:25,
     width:25,
-    resizeMode: 'contain',
-    marginTop:20
+    resizeMode:'contain',
+    justifyContent:'center',
+    margin:12
  },
  input: { 
   height:40,
