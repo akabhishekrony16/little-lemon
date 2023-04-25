@@ -1,4 +1,4 @@
-import { StyleSheet, View,Image,Pressable } from 'react-native';
+import { StyleSheet, View,Image,Pressable} from 'react-native';
 import { useState,useEffect } from 'react';
 
 import Header from './components/header';
@@ -6,6 +6,10 @@ import ProfileScreen from './screens/profile';
 import OnboardingScreen from './screens/onboarding';
 import SplashScreen from './screens/splashscreen';
 import HomeScreen from './screens/homescreen';
+import SearchScreen from './screens/search';
+import OrderScreen from './screens/order';
+import CheckoutScreen from './screens/checkout';
+import CheckDatabaseScreen from './screens/checkdatabaseentry'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -47,10 +51,14 @@ export default function App() {
       <View style={styles.container}>
       <Header/>
       <NavigationContainer>
-       <Stack.Navigator>
+       <Stack.Navigator initialRouteName='Home'>
             <Stack.Screen options={{headerShown:false}} name="Home" component={HomeScreen} />
-            <Stack.Screen options={{title:"Welcome",headerLeft:()=>null}} name="Onboarding" component={OnboardingScreen} />
+            <Stack.Screen options={{title:"Welcome",headerShown:false}} name="Onboarding" component={OnboardingScreen} />
             <Stack.Screen options={{title:"Personal Information"}} name="Profile" component={ProfileScreen} />
+            <Stack.Screen options={{headerShown:false}} name="Search" component={SearchScreen} />
+            <Stack.Screen options={{headerShown:false}} name="Order" component={OrderScreen} />
+            <Stack.Screen options={{headerShown:false}} name="Checkout" component={CheckoutScreen} />
+            <Stack.Screen options={{headerShown:false}} name="Checkdatabase" component={CheckDatabaseScreen} />
        </Stack.Navigator>
       </NavigationContainer>
     </View>
@@ -60,10 +68,14 @@ export default function App() {
       <View style={styles.container}>
         <Header/>
         <NavigationContainer>
-        <Stack.Navigator>
-            <Stack.Screen options={{title:"Welcome",headerLeft: ()=> null}} name="Onboarding" component={OnboardingScreen} />
+        <Stack.Navigator initialRouteName='Welcome'>
+            <Stack.Screen options={{title:"Welcome",headerShown:false}} name="Onboarding" component={OnboardingScreen} />
             <Stack.Screen options={{headerShown:false}} name="Home" component={HomeScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen options={{headerShown:false}} name="Search" component={SearchScreen} />
+            <Stack.Screen options={{headerShown:false}} name="Order" component={OrderScreen} />
+            <Stack.Screen options={{headerShown:false}} name="Checkout" component={CheckoutScreen} />
+            <Stack.Screen options={{headerShown:false}} name="Checkdatabase" component={CheckDatabaseScreen} />
           </Stack.Navigator>
         </NavigationContainer>
         </View>

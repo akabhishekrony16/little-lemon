@@ -20,7 +20,7 @@ export default function OnboardingScreen({navigation}) {
 
 function NavigateToProfile(){
   storeData({first_name:firstname,
-    last_name:"Adsad",
+    last_name:"",
     mail:email,
     phone_no:null,
     image_uri:null,
