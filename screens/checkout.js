@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Text, View,StyleSheet,Pressable,FlatList,Dimensions} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Text, View,StyleSheet,Pressable,FlatList,Dimensions,Image} from 'react-native';
 import SplashScreen from './splashscreen';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,6 +16,7 @@ const db = SQLite.openDatabase('little_lemon')
 export default function CheckoutScreen({navigation}) {
   const [Data,setData] = useState([]);
   const [loading,setloading] = useState(true);
+  const [id,setId] = useState('');
 
   const RemoveData = async (value) => {
     try{
@@ -28,17 +28,41 @@ export default function CheckoutScreen({navigation}) {
         return navigation.navigate("Search")
       } else {
         console.log('Data Not Found',result);
-        return navigation.navigate("Search")
       }
     });
   }catch(error){
     console.log(error)
-    return navigation.navigate("Search")
-  }
-  };
+  }};
+
+  function GenerateId(){
+    try{
+      AsyncStorage.getItem('SavedId', (err, result) => {
+      if (result !== null) {
+        console.log('Data Found', result)
+        const json = JSON.parse(result)
+        var newid = json["Id"]
+        // let n = 4
+        // var next = (parseInt(id.slice(1,)) + 1).toString();
+        // var zero = '0'
+        // for (var i =0;i<n-next.length;i++){
+        //     zero = zero + '0'
+        // }
+        setId(newid);
+        return console.log('Id',newid)
+      } else {
+        console.log('Data Not Found',result)
+        setId("M00001")
+        AsyncStorage.setItem('SavedId', JSON.stringify({Id:"M00001"}));
+        return console.log('Id Generated',"M00001")
+      }
+    });
+  }catch(error){
+    console.log(error)
+  }};
 
 
   const getData = async () => {
+    GenerateId();
     try{
       const value = await AsyncStorage.getItem('SavedOrder')
         if(value !== null) {
@@ -65,23 +89,21 @@ useEffect(() => {
     try{
       await AsyncStorage.getItem('SavedOrder', (err, result) => {
       if (result !== null) {
-        setloading(true);
         console.log('Data Found', result);
         const json = JSON.parse(result);
         console.log(json,item.name);
         var newValue = json.filter(function (y){return y.name !== item.name});
         console.log(newValue);
         AsyncStorage.setItem('SavedOrder', JSON.stringify(newValue));
+        return setloading(true);
       } else {
         console.log('Data Not Found',result);
       }
     });
   }catch(error){
     console.log(error)
-  }
-  setloading(false);
-  };
-  
+  }};
+
   return (
     <View style = {{marginTop:10,marginLeft:10,marginRight:10}}>
       <Text style={{fontWeight:'700',fontSize:18}}>{item.name}</Text>
@@ -96,7 +118,7 @@ useEffect(() => {
       </Pressable>   
       </View>
       <Text style={{fontWeight:'400',marginRight:10}}>{'Amount: '+ '$' + parseFloat(item.qty*item.price).toFixed(2)}</Text>
-      <View style={{borderColor:'#EDEFEE',borderWidth:1,marginTop:5}}/>
+      <View style={{borderColor:'#eaebe1',borderWidth:1,marginTop:5}}/>
     </View>
       
   );
@@ -108,24 +130,43 @@ function SaveData(){
     tx.executeSql('DROP TABLE IF EXISTS Checkout');
     tx.executeSql('CREATE TABLE IF NOT EXISTS Checkout(id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(100),price INTEGER,quantity VARCHAR(100),billno VARCHAR(100))');
     for(var i=0;i<Data.length;i++){
-      tx.executeSql('INSERT INTO Checkout (name,price,quantity,billno) VALUES (?,?,?,?)', [Data[i]['name'],Data[i]['price'],Data[i]['qty'],"M-00001"]);
+      tx.executeSql('INSERT INTO Checkout (name,price,quantity,billno) VALUES (?,?,?,?)', [Data[i]['name'],Data[i]['price'],Data[i]['qty'],id]);
     }});
   setloading(false);
-  return navigation.navigate("Checkdatabase")
+  return navigation.navigate("Confirmation")
 }
+
+function Header(){
+  return(
+  <View style={{flexDirection:'row',justifyContent:'space-between',marginRight:10,marginLeft:10}}>
+  <Pressable
+  onPress={()=>{navigation.navigate("Search")}}
+  >
+  <Image source={require('../assets/back.png')} style={{ width:30, height:30,resizeMode:'contain',alignSelf:'flex-start'}} />
+  </Pressable>
+  <Pressable
+  onPress={()=>{navigation.navigate("Home")}}
+  >
+  <Image source={require('../assets/home.png')} style={{ width:30, height:25,resizeMode:'contain',alignSelf:'flex-start'}} />
+  </Pressable>
+</View>)
+};
 
 if(loading){
     return <SplashScreen/>;
   }else{
   
   return (
-    <View style={{ flex:1,backgroundColor: 'white'}}>
-      <Text style = {{textAlign:'center',backgroundColor:green,color:yellow,padding:5,fontSize:15,fontWeight:'500'}}>Order Details</Text>
+    <View style={{ flex:1,marginTop:50}}>
+      <Header/>
+      <Text style = {{textAlign:'center',backgroundColor:green,color:yellow,padding:5,marginTop:20,fontSize:15,fontWeight:'500'}}>Order Details</Text>
+       <View style = {{flex:0.9}}>
        <FlatList
         data={Data}
         renderItem={renderMenuItems}
         >
        </FlatList>
+       </View>
        <View style={{borderColor:'black',borderStyle:'dashed',borderWidth:1,marginTop:20,marginLeft:10,marginRight:10}}/>
        <View style={{flexDirection:'row',justifyContent:'space-between'}}>
        <Pressable
@@ -141,76 +182,24 @@ if(loading){
         </Text>
        </View>
        
-       <Pressable
-        style = {{backgroundColor:'black',alignSelf:'flex-end',borderRadius:5,marginTop:30,marginRight:10,width:100,borderColor:'black',borderWidth:1}}
+       <View style={{borderColor:'#EDEFEE',borderWidth:1,marginTop:20,marginLeft:10,marginRight:10}}/>
+
+      <View style = {{flexDirection:'row',justifyContent:'space-between',margin:10,marginTop:40}}>
+        <Pressable
+        style = {{backgroundColor:Data.length>0?'black':'#D9D8D4',borderRadius:5,width:windowWidth/2-20,borderColor:Data.length>0?'white':'black',borderWidth:1}}
         onPress={RemoveData}
-       >
-        <Text style = {{fontSize:10,textAlign:'center',padding:10,fontWeight:'500',color:'white'}}>Cancel Order</Text>
-      </Pressable>
-      
-      <View style={{borderColor:'#EDEFEE',borderWidth:1,marginTop:20,marginLeft:10,marginRight:10}}/>
-      
-      <Pressable
-        style = {{backgroundColor:Data.length>0?yellow:'#e4eaeb',alignSelf:'flex-end',borderRadius:5,marginTop:30,marginRight:10,marginBottom:20,width:windowWidth-20,borderColor:green,borderWidth:1}}
+        disabled={Data.length>0?false:true}
+        >
+        <Text style = {{color:Data.length>0?'white':'black',padding:10,textAlign:'center'}}>Cancel</Text>
+        </Pressable>
+        <Pressable
+        style = {{backgroundColor:Data.length>0?'white':'#D9D8D4',borderRadius:5,width:windowWidth/2-20,borderColor:'black',borderWidth:1}}
         onPress={SaveData}
-        disabled = {Data.length>0?false:true}
-       >
-        <Text style = {{fontSize:18,textAlign:'center',padding:10,fontWeight:'500'}}>Checkout</Text>
-      </Pressable>
+        disabled={Data.length>0?false:true}
+        >
+        <Text style = {{color:'black',padding:10,textAlign:'center'}}>Checkout</Text>
+        </Pressable>
+    </View>
     </View>
   );
 }};
-
-const StyleMain = StyleSheet.create({
-  HeaderContainer:{
-    paddingTop:5,
-    fontSize:45,
-    color:yellow,
-    textAlign:'left',
-    
-  },
-  SubHeaderContainer:{
-    fontSize:30,
-    color:'white',
-    textAlign:'left',
-    fontWeight:'300',
-    
-  },
-  container:{
-    paddingTop:5,
-    fontSize: 30,
-    color:'black',
-    textAlign:'center',
-  },
-  MenuImage:{
-    height:windowWidth-60,
-    width:windowWidth-20,
-    resizeMode:'cover',
-    alignSelf:'center',
-    borderRadius:15,
-    borderWidth:5,
-    borderColor:'#EBEAD3',
-    marginTop:20
-  },
-  SearchCOntainer:{
-    flexDirection: 'row',
-  },
-  logo: {
-    height:25,
-    width:25,
-    resizeMode: 'contain',
-    marginTop:20
- },
- input: { 
-  height:40,
-  width:80, 
-  borderWidth: 1,
-  borderRadius:5, 
-  fontSize:15, 
-  borderColor: 'black', 
-  backgroundColor: '#EDEFEE',
-  marginLeft:5,
-  padding:10
-},
-})
-

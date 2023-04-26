@@ -96,13 +96,12 @@ if(loading){
   }else{
   
   return (
-    <View style={{ flex:1,backgroundColor: 'white'}}>
+    <View style={{ flex:1,marginTop:50}}>
       <Header/>
       <ScrollView>
         <Image style={StyleMain.MenuImage} source={{uri:IMG_URL + Data['image_uri'] + '?raw=true'}} />
-        <Text  style={{fontWeight:'700',fontSize:25,marginLeft:10,marginTop:10}}>{Data['name']}{"\n"}{"\n"}
-        <Text style={{fontWeight:'300',fontSize:15,marginTop:2}}>{Data['description']}</Text>
-        </Text>
+        <Text  style={{fontWeight:'700',fontSize:25,marginLeft:10,marginTop:10}}>{Data['name']}</Text>
+        <Text style={{fontWeight:'300',fontSize:15,marginTop:5,marginLeft:10,marginRight:10}}>{Data['description']}</Text>
         <Text style={{fontWeight:'500',fontSize:18,marginLeft:10,marginTop:10}}>{'$' + Data['price']}</Text>
         <View style={{flexDirection:'row',marginTop:20,marginLeft:10}}>
         <Text  style={{fontWeight:'500',fontSize:18,marginTop:3}}>
@@ -118,7 +117,7 @@ if(loading){
         <Text style = {{marginTop:10,fontWeight:'300',fontSize:10,marginLeft:10}}>(**Quantity as Per Servings)</Text>
         </View>
         <Pressable
-        style = {{backgroundColor:Validate_Quantity(Qty)?green:'#D9D8D4',alignSelf:'center',borderRadius:10,marginTop:30,marginBottom:15,width:windowWidth-20,borderColor:'black',borderWidth:1}}
+        style = {{backgroundColor:Validate_Quantity(Qty)?green:'#D9D8D4',alignSelf:'center',borderRadius:10,marginTop:50,marginBottom:15,width:windowWidth-20,borderColor:'black',borderWidth:1}}
         disabled={!Validate_Quantity(Qty)}
         onPress={PlaceOrder}
        >

@@ -64,10 +64,10 @@ export default function HomeScreen({navigation}) {
     };
     return (
       <Pressable
-      style = {{backgroundColor:item.status?yellow:"#EDEFEE",marginRight:20,borderRadius:25,marginTop:10,marginBottom:15}}
+      style = {{backgroundColor:item.status?green:"#eaebe1",marginRight:20,borderRadius:25,marginTop:10,marginBottom:15}}
       onPress={SelectTitle}
       >
-        <Text style = {{fontSize:15,padding:10}}>{item.name}</Text>
+        <Text style = {{fontSize:15,padding:10,color:item.status?'white':'black'}}>{item.name}</Text>
       </Pressable>
     );
 };
@@ -85,7 +85,7 @@ function renderMenuItems({ item }) {
         </Text> 
         <Image style={StyleMain.MenuImage} source={{uri:IMG_URL + item.image + '?raw=true'}} />
       </View>
-      <View style={{borderColor:'#EDEFEE',borderWidth:1}}/>
+      <View style={{borderColor:'#eaebe1',borderWidth:1}}/>
     </View>
       
   );
@@ -191,7 +191,7 @@ const getData = async () => {
   }else{
   
   return (
-    <View style={{ flex:1,backgroundColor: 'white'}}>
+    <View style={{ flex:1,marginTop:50}}>
         <View>
         <Pressable
         onPress={()=>{navigation.navigate("Profile")}}
@@ -200,7 +200,7 @@ const getData = async () => {
         </Pressable>
      </View>
       
-      <View style={{ flex:0.7,backgroundColor:green}}>
+      <View style={{ flex:0.6,backgroundColor:green,marginTop:10}}>
         <View style = {{marginLeft:10,marginRight:10}}>
             <Text
             style={StyleMain.HeaderContainer}>
@@ -217,7 +217,7 @@ const getData = async () => {
             <View style = {{flexDirection:'row'}}>
               <Pressable
               onPress={()=>{navigation.navigate("Search")}}
-              style = {{backgroundColor:'gray',height:50,width:50,borderRadius:25}}
+              style = {{backgroundColor:yellow,height:50,width:50,borderRadius:25}}
               >
                  <Image style={StyleMain.search} source={require('../assets/search.png')} />
               </Pressable>
@@ -238,7 +238,7 @@ const getData = async () => {
        </FlatList>
      </View>
       
-      <View style={{borderColor:'#EDEFEE',borderWidth:1,marginLeft:10,marginRight:10}}/>
+      <View style={{borderColor:'#eaebe1',borderWidth:1,marginLeft:10,marginRight:10}}/>
       
         <View style={{flex:0.45}}>
         <FlatList
