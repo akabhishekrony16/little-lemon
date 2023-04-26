@@ -62,10 +62,10 @@ export default function SearchScreen({navigation}) {
     };
     return (
       <Pressable
-      style = {{backgroundColor:item.status?yellow:"#EDEFEE",marginRight:20,borderRadius:25,marginTop:10,marginBottom:15}}
+      style = {{backgroundColor:item.status?green:"#eaebe1",marginRight:20,borderRadius:25,marginTop:10,marginBottom:15}}
       onPress={SelectTitle}
       >
-        <Text style = {{fontSize:15,padding:10}}>{item.name}</Text>
+        <Text style = {{fontSize:15,padding:10,color:item.status?'white':'black'}}>{item.name}</Text>
       </Pressable>
     );
 };
@@ -104,7 +104,7 @@ function renderMenuItems({ item }) {
       >
         <Text style = {{fontSize:15,textAlign:'center',padding:5}}>Add</Text>
       </Pressable>
-      <View style={{borderColor:'#EDEFEE',borderWidth:1}}/>
+      <View style={{borderColor:'#eaebe1',borderWidth:1}}/>
     </View>
       
   );
@@ -190,7 +190,7 @@ if(loading){
   }else{
   
   return (
-    <View style={{ flex:1,backgroundColor: 'white'}}>
+    <View style={{ flex:1,marginTop:50}}>
         <Header/>
         <View style = {{marginLeft:10,marginRight:10}}>
         <TextInput
@@ -266,7 +266,7 @@ const StyleMain = StyleSheet.create({
   borderRadius:10, 
   fontSize:15, 
   borderColor: 'black', 
-  backgroundColor: '#EDEFEE',
+  backgroundColor: '#eaebe1',
   alignSelf:'center',
   margin:20,
   padding:10

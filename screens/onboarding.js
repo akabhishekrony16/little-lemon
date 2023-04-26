@@ -1,5 +1,5 @@
 import React, { useState } from 'react'; 
-import { ScrollView, View ,Text, StyleSheet, TextInput,Pressable} from 'react-native';
+import { ScrollView, View ,Text, StyleSheet, TextInput,Pressable,Image} from 'react-native';
 import Validation from '../utilities/validation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -36,8 +36,9 @@ function NavigateToProfile(){
 return (
     <View style={styles.container}>
     <ScrollView>
-    <View style = {{backgroundColor:green,paddingBottom:30}}>
+    <View style = {{paddingBottom:30}}>
       <Text style={styles.headerText}>Let us get to know you</Text>
+      <Image style ={{width:100,height:100,alignSelf:'center',resizeMode:'contain'}} source={require('../assets/little-lemon-logo.png')} />
       <Text style={styles.NameText}>First Name</Text>
       <TextInput
        style={styles.input} 
@@ -55,7 +56,6 @@ return (
       >
       </TextInput>
       </View>
-      <View>
       <Pressable
         style={[styles.button,{backgroundColor:Validation(firstname,email)?yellow:'#D9D8D4'}]}
         onPress={NavigateToProfile}
@@ -65,7 +65,6 @@ return (
           Next
         </Text>
       </Pressable>
-      </View>
     </ScrollView>
     </View>
   );
@@ -73,55 +72,57 @@ return (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop:40
   },
   headerText: {
-    padding: 30,
-    fontSize: 30,
-    color: '#EDEFEE',
+    padding:30,
+    fontSize:24,
+    color:green,
     textAlign: 'center',
     marginTop:20
   },
   NameText: {
-    fontSize: 24,
+    fontSize:18,
     padding: 20,
     marginVertical: 8,
-    color: '#EDEFEE',
+    color:green,
     textAlign: 'center',
     marginTop:30
   },
   EmailText: {
-    fontSize: 24,
+    fontSize:18,
     padding: 20,
     marginVertical: 8,
-    color: '#EDEFEE',
+    color:green,
     textAlign: 'center',
   },
   input: { 
-    height:60, 
+    height:50, 
     width:280, 
     borderWidth: 1,
     borderRadius:10, 
     padding: 10, 
-    fontSize:32, 
-    borderColor: '#EDEFEE', 
-    backgroundColor: '#EDEFEE',
+    fontSize:16, 
+    borderColor:green, 
+    backgroundColor: 'white',
     alignSelf:'center' 
 },
 button: {
     fontSize:15,
-    borderColor: '#EDEFEE',
+    borderColor:'black',
     borderWidth: 2,
-    borderRadius:10,
+    borderRadius:5,
     marginTop:50,
     marginBottom:50,
-    width:150,
-    height:60,
+    width:100,
+    height:40,
     justifyContent:'center',
-    marginLeft:160
+    alignSelf:'flex-end',
+    marginRight:43
   },
   buttonText: {
     textAlign: 'center',
-    fontSize:32,
+    fontSize:16,
   },
   loginText:{
     fontSize: 30,

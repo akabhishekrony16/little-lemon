@@ -15,24 +15,25 @@ export default function Header() {
 
 const StyleHeader = StyleSheet.create({
   container:{ 
-    flex: 0.1, 
+    flex: 0.12, 
     backgroundColor: 'white',
     flexDirection:'row',
     width:360,
     justifyContent:'center',
     alignItems:'center',
-    marginTop:15,
 
   },
   innerContainer:{
     fontSize: 25,
     color: 'black',
     textAlign: 'right',
+    marginTop:30
   },
   logo: {
     height:50,
     width: 100,
     resizeMode: 'contain',
+    marginTop:30
  },
 
 })

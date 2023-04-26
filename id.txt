@@ -1,0 +1,23 @@
+ try {
+      const value = await AsyncStorage.getItem('@Order_Id')
+      if(value !== null) {
+        const json = JSON.parse(value);
+        if (json['status'] == "checkout"){
+          var id = json["Id"]
+          let n = 4
+          var next = (parseInt(id.slice(1,)) + 1).toString();
+          var zero = '0'
+          for (var i =0;i<n-next.length;i++){
+              zero = zero + '0'
+          }
+          setId("M" + zero + next);
+        }
+        else{
+          setId({Id:json['Id'],status:json['status']});
+        }
+      }else{
+        try {
+          await AsyncStorage.setItem('@Order_Id', JSON.stringify({Id:'M00001',status:'hold'}))
+        } catch (error) {
+          console.log(error)
+        }

@@ -40,8 +40,15 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "98a028e8-6dfb-4f04-987b-ce8e278f60fd"
+        "projectId": "e61bb6e2-4beb-4f48-906e-b360b9acf02a"
       }
+    },
+    "owner": "abhishekkar303",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e61bb6e2-4beb-4f48-906e-b360b9acf02a"
     }
   }
 }

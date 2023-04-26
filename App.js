@@ -7,9 +7,9 @@ import OnboardingScreen from './screens/onboarding';
 import SplashScreen from './screens/splashscreen';
 import HomeScreen from './screens/homescreen';
 import SearchScreen from './screens/search';
-import OrderScreen from './screens/order';
+import OrderScreen from './screens/placeorder';
 import CheckoutScreen from './screens/checkout';
-import CheckDatabaseScreen from './screens/checkdatabaseentry'
+import ConfirmationScreen from './screens/confirmation'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -48,7 +48,6 @@ export default function App() {
   }else{
     return (
       <View style={styles.container}>
-        <Header/>
         <NavigationContainer>
         <Stack.Navigator initialRouteName = {login?"Home":"Welcome"}>
             <Stack.Screen options={{title:"Welcome",headerShown:false}} name="Onboarding" component={OnboardingScreen} />
@@ -57,7 +56,7 @@ export default function App() {
             <Stack.Screen options={{headerShown:false}} name="Search" component={SearchScreen} />
             <Stack.Screen options={{headerShown:false}} name="Order" component={OrderScreen} />
             <Stack.Screen options={{headerShown:false}} name="Checkout" component={CheckoutScreen} />
-            <Stack.Screen options={{headerShown:false}} name="Checkdatabase" component={CheckDatabaseScreen} />
+            <Stack.Screen options={{headerShown:false}} name="Confirmation" component={ConfirmationScreen} />
           </Stack.Navigator>
         </NavigationContainer>
         </View>
