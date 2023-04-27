@@ -138,12 +138,16 @@ function SaveData(){
 
 function Header(){
   return(
-  <View style={{flexDirection:'row',justifyContent:'space-between',marginRight:10,marginLeft:10}}>
+  <View style={{flexDirection:'row',justifyContent:'space-between',marginRight:10,marginLeft:10,marginTop:40}}>
   <Pressable
   onPress={()=>{navigation.navigate("Search")}}
   >
   <Image source={require('../assets/back.png')} style={{ width:30, height:30,resizeMode:'contain',alignSelf:'flex-start'}} />
   </Pressable>
+  <View style={{flexDirection:'row',justifyContent:'center'}}>
+   <Text style={{color:green,fontSize:24,justifyContent:'center',fontWeight:'500'}}>Little Lemon</Text>
+   <Image source={require('../assets/little-lemon-logo-grey.png')} style={{ width:50, height:30,resizeMode:'contain',alignSelf:'center'}} />
+  </View>
   <Pressable
   onPress={()=>{navigation.navigate("Home")}}
   >
@@ -157,7 +161,7 @@ if(loading){
   }else{
   
   return (
-    <View style={{ flex:1,marginTop:50}}>
+    <View style={{ flex:1}}>
       <Header/>
       <Text style = {{textAlign:'center',backgroundColor:green,color:yellow,padding:5,marginTop:20,fontSize:15,fontWeight:'500'}}>Order Details</Text>
        <View style = {{flex:0.9}}>

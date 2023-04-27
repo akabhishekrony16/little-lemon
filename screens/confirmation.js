@@ -64,7 +64,7 @@ useEffect(() => {
 
 function Header(){
   return(
-  <View style={{flexDirection:'row',justifyContent:'space-between',marginRight:10,marginLeft:10}}>
+  <View style={{flexDirection:'row',justifyContent:'space-between',marginRight:10,marginLeft:10,marginTop:40}}>
   <Pressable
   onPress={()=>{navigation.navigate("Checkout")}}
   >
@@ -87,7 +87,7 @@ if(loading){
   }else{
   
   return (
-    <View style={{ flex:1,marginTop:50}}>
+    <View style={{ flex:1}}>
       <Header/>
       <Text style = {{textAlign:'center',backgroundColor:'black',color:'white',marginTop:20,padding:5,fontSize:15,fontWeight:'500'}}>Billing Details</Text>
       <View style = {{flexDirection:'row',justifyContent:'space-between'}}>

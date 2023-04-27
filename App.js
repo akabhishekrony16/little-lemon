@@ -1,7 +1,7 @@
 import { StyleSheet, View} from 'react-native';
 import { useState,useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
 
-import Header from './components/header';
 import ProfileScreen from './screens/profile';
 import OnboardingScreen from './screens/onboarding';
 import SplashScreen from './screens/splashscreen';
@@ -59,6 +59,7 @@ export default function App() {
             <Stack.Screen options={{headerShown:false}} name="Confirmation" component={ConfirmationScreen} />
           </Stack.Navigator>
         </NavigationContainer>
+        <StatusBar style="dark" />
         </View>
     );
   }
