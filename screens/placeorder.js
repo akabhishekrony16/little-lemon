@@ -96,7 +96,7 @@ if(loading){
   }else{
   
   return (
-    <View style={{ flex:1,marginTop:50}}>
+    <View style={{ flex:1,marginTop:25}}>
       <Header/>
       <ScrollView>
         <Image style={StyleMain.MenuImage} source={{uri:IMG_URL + Data['image_uri'] + '?raw=true'}} />

@@ -180,9 +180,9 @@ const getData = async () => {
 
   function Image_Header(){
     if(image=== null){
-      return <Text  style = {{backgroundColor:'#10b6c2',textAlign:'center',padding:18,borderRadius:30,marginLeft:10,marginBottom:5,color:'white',fontSize:15,width:60,height:60}} >{firstname.slice(0,1) + lastname.slice(0,1)}</Text>
+      return <Text  style = {{backgroundColor:'#10b6c2',textAlign:'center',padding:18,borderRadius:30,marginLeft:10,color:'white',fontSize:15,width:60,height:60}} >{firstname.slice(0,1) + lastname.slice(0,1)}</Text>
     }else{
-      return <Image source={{ uri: image }} style={{ width:60, height:60,borderRadius:30,resizeMode:'contain',alignSelf:'flex-start',marginLeft:10,marginBottom:5}} />
+      return <Image source={{ uri: image }} style={{ width:60, height:60,borderRadius:30,resizeMode:'contain',alignSelf:'flex-start',marginLeft:10}} />
     }
   }
 
@@ -191,16 +191,15 @@ const getData = async () => {
   }else{
   
   return (
-    <View style={{ flex:1,marginTop:50}}>
-        <View>
+    <View style={{ flex:1}}>
         <Pressable
         onPress={()=>{navigation.navigate("Profile")}}
+        style = {{height:50,width:50,borderRadius:25,marginTop:40}}
         >
         <Image_Header/>
         </Pressable>
-     </View>
       
-      <View style={{ flex:0.6,backgroundColor:green,marginTop:10}}>
+      <View style={{ flex:0.7,backgroundColor:green,marginTop:25}}>
         <View style = {{marginLeft:10,marginRight:10}}>
             <Text
             style={StyleMain.HeaderContainer}>
@@ -214,14 +213,12 @@ const getData = async () => {
             </Text>
                 <Image style={StyleMain.HeaderImage} source={require('../assets/header.png')} />
             </View>
-            <View style = {{flexDirection:'row'}}>
-              <Pressable
-              onPress={()=>{navigation.navigate("Search")}}
-              style = {{backgroundColor:yellow,height:50,width:50,borderRadius:25}}
-              >
-                 <Image style={StyleMain.search} source={require('../assets/search.png')} />
-              </Pressable>
-            </View>
+            <Pressable
+            onPress={()=>{navigation.navigate("Search")}}
+            style = {{backgroundColor:yellow,height:50,width:50,borderRadius:25,marginBottom:10,marginTop:10}}
+            >
+                <Image style={StyleMain.search} source={require('../assets/search.png')} />
+            </Pressable>
         </View>
      </View>
       
